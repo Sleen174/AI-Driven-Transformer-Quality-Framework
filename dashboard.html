@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Transformer Quality Gateway</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: Segoe UI, Arial, sans-serif;
+            margin: 0;
+            padding: 24px;
+            color: #1f2937;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3a8a, #0d9488);
+            color: white;
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border-left: 5px solid #2563eb;
+        }
+        .danger { border-left-color: #dc2626; }
+        .value { font-size: 28px; font-weight: 700; }
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+        th, td {
+            border: 1px solid #d1d5db;
+            padding: 8px;
+            text-align: center;
+        }
+        th { background: #1e3a8a; color: white; }
+        form {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+        label { font-size: 12px; font-weight: 600; }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 16px;
+            background: #0d9488;
+            color: white;
+            border: 0;
+            padding: 12px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .result {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 8px;
+            background: #ecfeff;
+            border: 1px solid #67e8f9;
+        }
+        @media (max-width: 900px) {
+            .grid, .form-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Transformer Manufacturing Quality Framework</h1>
+        <p>Zero-Trust Telemetry Architecture & Isolation Forest Gating Engine</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div>Model Accuracy</div>
+            <div class="value">{{ metrics.accuracy }}</div>
+        </div>
+        <div class="card">
+            <div>Precision</div>
+            <div class="value">{{ metrics.precision }}</div>
+        </div>
+        <div class="card">
+            <div>Recall</div>
+            <div class="value">{{ metrics.recall }}</div>
+        </div>
+        <div class="card danger">
+            <div>Active Quality Holds</div>
+            <div class="value">{{ risk_count }} / {{ total }}</div>
+        </div>
+    </div>
+
+    <form method="POST">
+        <h2>Manual Quality-Gate Test</h2>
+        <div class="form-grid">
+            {% for feature in features %}
+            <div>
+                <label>{{ feature }}</label>
+                <input type="number" step="0.001" name="{{ feature }}" required>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit">Run Anomaly Check</button>
+
+        {% if prediction %}
+        <div class="result">
+            <strong>ML Prediction:</strong> {{ prediction }}<br>
+            <strong>Compliance Status:</strong> {{ status }}
+        </div>
+        {% endif %}
+    </form>
+
+    <h2>Recent Factory Telemetry Rows</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Asset ID</th>
+                <th>Burr</th>
+                <th>Humidity</th>
+                <th>VPD Moisture</th>
+                <th>Torque</th>
+                <th>H2 ppm</th>
+                <th>C2H2 ppm</th>
+                <th>Impact g</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in sample %}
+            <tr>
+                <td>{{ row.asset_id }}</td>
+                <td>{{ row.burr_microns }}</td>
+                <td>{{ row.humidity_rh }}</td>
+                <td>{{ row.vpd_moisture_rate }}</td>
+                <td>{{ row.tank_bolt_torque_nm }}</td>
+                <td>{{ row.hydrogen_ppm }}</td>
+                <td>{{ row.acetylene_ppm }}</td>
+                <td>{{ row.transit_impact_g }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
